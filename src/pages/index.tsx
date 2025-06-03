@@ -105,10 +105,19 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
 
+type Post = {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    description: string;
+    category: string;
+    [key: string]: any; // optional if you have other props
+  };
+};
 
 
-
-export default function Home({ posts }) {
+export default function Home({ posts }: { posts: Post[] }) {
   const [category, setCategory] = useState('All');
 
   const filtered = category === 'All' ? posts : posts.filter(p => p.frontmatter.category === category);
