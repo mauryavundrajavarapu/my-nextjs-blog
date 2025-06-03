@@ -112,36 +112,51 @@ type Post = {
     date: string;
     description: string;
     category: string;
-    [key: string]: any; // optional if you have other props
+    image: string;
+    author?: string;
+    type?: string;
+    [key: string]: any; // for any other optional frontmatter fields
   };
 };
 
+interface HomeProps {
+  posts: Post[];
+}
 
-export default function Home({ posts }: { posts: Post[] }) {
+export default function Home({ posts }: HomeProps) {
   const [category, setCategory] = useState('All');
 
-  const filtered = category === 'All' ? posts : posts.filter(p => p.frontmatter.category === category);
+  const filtered =
+    category === 'All'
+      ? posts
+      : posts.filter((p) => p.frontmatter.category === category);
 
   return (
     <div className="w-full min-h-screen bg-white text-black p-6">
-      {/* Title with 'Abramo' or serif fallback */}
-      <h1 className="text-5xl font-serif text-center my-6" style={{ fontFamily: "'Abramo', serif" }}>
+      <h1
+        className="text-5xl font-serif text-center my-6"
+        style={{ fontFamily: "'Abramo', serif" }}
+      >
         Maurya&apos;s Mind
       </h1>
 
-      {/* Subtitle with 'Cabin Sketch' or cursive fallback */}
-      <h2 className="text-3xl text-center mb-2" style={{ fontFamily: "'Cabin Sketch', cursive" }}>
+      <h2
+        className="text-3xl text-center mb-2"
+        style={{ fontFamily: "'Cabin Sketch', cursive" }}
+      >
         BOOKS MOVIES THOUGHTS STORIES
       </h2>
 
-      {/* Description with 'Blogger' or sans-serif fallback */}
-      <p className="text-center mb-8" style={{ fontFamily: "'Blogger', sans-serif" }}>
-        Books, movies, thoughts, stories and much more, this is where I unpack them all, one post at a time.
+      <p
+        className="text-center mb-8"
+        style={{ fontFamily: "'Blogger', sans-serif" }}
+      >
+        Books, movies, thoughts, stories and much more, this is where I unpack
+        them all, one post at a time.
       </p>
 
-      {/* Category buttons */}
       <div className="flex justify-center gap-4 mb-8 flex-wrap">
-        {['All', 'Books', 'Movies', 'Thoughts', 'Stories'].map(cat => (
+        {['All', 'Books', 'Movies', 'Thoughts', 'Stories'].map((cat) => (
           <button
             key={cat}
             onClick={() => setCategory(cat)}
@@ -156,7 +171,6 @@ export default function Home({ posts }: { posts: Post[] }) {
         ))}
       </div>
 
-      {/* Posts grid */}
       <div className="grid md:grid-cols-3 gap-8">
         {filtered.map(({ slug, frontmatter }) => (
           <Link
@@ -167,19 +181,31 @@ export default function Home({ posts }: { posts: Post[] }) {
             <Image
               src={frontmatter.image}
               alt={frontmatter.title}
+              width={400}         // Adjust these as needed
+              height={200}        // Adjust these as needed
               className="w-full max-h-48 object-contain rounded bg-gray-100"
             />
             <div className="p-4 bg-white">
               <p className="text-sm text-gray-500">
-                {frontmatter.type} / {frontmatter.category}
+                {frontmatter.type ?? ''} / {frontmatter.category}
               </p>
-              <h3 className="text-lg font-bold mt-1" style={{ fontFamily: "'Abramo', serif" }}>
+              <h3
+                className="text-lg font-bold mt-1"
+                style={{ fontFamily: "'Abramo', serif" }}
+              >
                 {frontmatter.title}
               </h3>
-              <p className="text-sm text-gray-700 mt-1" style={{ fontFamily: "'Blogger', sans-serif" }}>
+              <p
+                className="text-sm text-gray-700 mt-1"
+                style={{ fontFamily: "'Blogger', sans-serif" }}
+              >
                 {frontmatter.description}
               </p>
-              <p className="mt-2 text-sm text-gray-600 italic">{frontmatter.author}</p>
+              {frontmatter.author && (
+                <p className="mt-2 text-sm text-gray-600 italic">
+                  {frontmatter.author}
+                </p>
+              )}
             </div>
           </Link>
         ))}
@@ -188,34 +214,15 @@ export default function Home({ posts }: { posts: Post[] }) {
   );
 }
 
-// export async function getStaticProps() {
-//   const postsDir = path.join(process.cwd(), 'posts');
-//   const files = fs.readdirSync(postsDir);
-
-//   const posts = files.map(filename => {
-//     const slug = filename.replace('.md', '');
-//     const markdownWithMeta = fs.readFileSync(path.join(postsDir, filename), 'utf-8');
-//     const { data: frontmatter } = matter(markdownWithMeta);
-
-//     return {
-//       slug,
-//       frontmatter,
-//     };
-//   });
-
-//   return {
-//     props: {
-//       posts,
-//     },
-//   };
-// }
-
 export async function getStaticProps() {
   const files = fs.readdirSync(path.join('posts'));
 
-  const posts = files.map((filename) => {
+  const posts: Post[] = files.map((filename) => {
     const slug = filename.replace('.md', '');
-    const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
+    const markdownWithMeta = fs.readFileSync(
+      path.join('posts', filename),
+      'utf-8'
+    );
     const { data: frontmatter } = matter(markdownWithMeta);
 
     return {
@@ -224,8 +231,11 @@ export async function getStaticProps() {
     };
   });
 
-  // Sort posts by date descending (newest first)
-  posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+  // Sort posts by date descending
+  posts.sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+  );
 
   return {
     props: {
