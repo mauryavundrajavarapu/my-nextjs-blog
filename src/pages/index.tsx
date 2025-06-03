@@ -1,115 +1,225 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+// // pages/index.tsx
+// import fs from 'fs';
+// import path from 'path';
+// import matter from 'gray-matter';
+// import Link from 'next/link';
+// import { useState } from 'react';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// export default function Home({ posts }) {
+//   const [category, setCategory] = useState('All');
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+//   const filtered = category === 'All' ? posts : posts.filter(p => p.frontmatter.category === category);
 
-export default function Home() {
+//   return (
+//     <div className="w-full min-h-screen bg-white text-black p-6">
+//       {/* Title with 'Abramo' or serif fallback */}
+//       <h1 className="text-5xl font-serif text-center my-6" style={{ fontFamily: "'Abramo', serif" }}>
+//         Maurya's Mind
+//       </h1>
+
+//       {/* Subtitle with 'Cabin Sketch' or cursive fallback */}
+//       <h2 className="text-3xl text-center mb-2" style={{ fontFamily: "'Cabin Sketch', cursive" }}>
+//         BOOKS MOVIES THOUGHTS
+//       </h2>
+
+//       {/* Description with 'Blogger' or sans-serif fallback */}
+//       <p className="text-center mb-8" style={{ fontFamily: "'Blogger', sans-serif" }}>
+//         Books, movies, thoughts and much more, this is where I unpack them all, one post at a time.
+//       </p>
+
+//       {/* Category buttons */}
+//       <div className="flex justify-center gap-4 mb-8">
+//         {['All', 'Books', 'Movies', 'Thoughts'].map(cat => (
+//           <button
+//             key={cat}
+//             onClick={() => setCategory(cat)}
+//             className={`px-5 py-2 rounded-full font-semibold transition
+//               ${
+//                 category === cat
+//                   ? 'bg-black text-white'
+//                   : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+//               }`}
+//           >
+//             {cat}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* Posts grid */}
+//       <div className="grid md:grid-cols-3 gap-8">
+//         {filtered.map(({ slug, frontmatter }) => (
+//           <Link key={slug}
+//             href={`/posts/${slug}`}
+//             className="block shadow-md hover:shadow-lg rounded overflow-hidden transition"
+//               >
+//               <img
+//                 src={frontmatter.image}
+//                 alt={frontmatter.title}
+//                 className="w-full max-h-48 object-contain rounded bg-gray-100"
+//               />
+//               <div className="p-4 bg-white">
+//                 <p className="text-sm text-gray-500">
+//                   {frontmatter.type} / {frontmatter.category}
+//                 </p>
+//                 <h3 className="text-lg font-bold mt-1" style={{ fontFamily: "'Abramo', serif" }}>
+//                   {frontmatter.title}
+//                 </h3>
+//                 <p className="text-sm text-gray-700 mt-1" style={{ fontFamily: "'Blogger', sans-serif" }}>
+//                   {frontmatter.description}
+//                 </p>
+//                 <p className="mt-2 text-sm text-gray-600 italic">{frontmatter.author}</p>
+//               </div>
+//           </Link>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export async function getStaticProps() {
+//   const postsDir = path.join(process.cwd(), 'posts');
+//   const files = fs.readdirSync(postsDir);
+
+//   const posts = files.map(filename => {
+//     const slug = filename.replace('.md', '');
+//     const markdownWithMeta = fs.readFileSync(path.join(postsDir, filename), 'utf-8');
+//     const { data: frontmatter } = matter(markdownWithMeta);
+
+//     return {
+//       slug,
+//       frontmatter,
+//     };
+//   });
+
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// }
+
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import Link from 'next/link';
+import { useState } from 'react';
+
+
+
+export default function Home({ posts }) {
+  const [category, setCategory] = useState('All');
+
+  const filtered = category === 'All' ? posts : posts.filter(p => p.frontmatter.category === category);
+
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="w-full min-h-screen bg-white text-black p-6">
+      {/* Title with 'Abramo' or serif fallback */}
+      <h1 className="text-5xl font-serif text-center my-6" style={{ fontFamily: "'Abramo', serif" }}>
+        Maurya's Mind
+      </h1>
+
+      {/* Subtitle with 'Cabin Sketch' or cursive fallback */}
+      <h2 className="text-3xl text-center mb-2" style={{ fontFamily: "'Cabin Sketch', cursive" }}>
+        BOOKS MOVIES THOUGHTS STORIES
+      </h2>
+
+      {/* Description with 'Blogger' or sans-serif fallback */}
+      <p className="text-center mb-8" style={{ fontFamily: "'Blogger', sans-serif" }}>
+        Books, movies, thoughts, stories and much more, this is where I unpack them all, one post at a time.
+      </p>
+
+      {/* Category buttons */}
+      <div className="flex justify-center gap-4 mb-8 flex-wrap">
+        {['All', 'Books', 'Movies', 'Thoughts', 'Stories'].map(cat => (
+          <button
+            key={cat}
+            onClick={() => setCategory(cat)}
+            className={`px-5 py-2 rounded-full font-semibold transition ${
+              category === cat
+                ? 'bg-black text-white'
+                : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+            }`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Posts grid */}
+      <div className="grid md:grid-cols-3 gap-8">
+        {filtered.map(({ slug, frontmatter }) => (
+          <Link
+            key={slug}
+            href={`/posts/${slug}`}
+            className="block shadow-md hover:shadow-lg rounded overflow-hidden transition"
+          >
+            <img
+              src={frontmatter.image}
+              alt={frontmatter.title}
+              className="w-full max-h-48 object-contain rounded bg-gray-100"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            <div className="p-4 bg-white">
+              <p className="text-sm text-gray-500">
+                {frontmatter.type} / {frontmatter.category}
+              </p>
+              <h3 className="text-lg font-bold mt-1" style={{ fontFamily: "'Abramo', serif" }}>
+                {frontmatter.title}
+              </h3>
+              <p className="text-sm text-gray-700 mt-1" style={{ fontFamily: "'Blogger', sans-serif" }}>
+                {frontmatter.description}
+              </p>
+              <p className="mt-2 text-sm text-gray-600 italic">{frontmatter.author}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
+
+// export async function getStaticProps() {
+//   const postsDir = path.join(process.cwd(), 'posts');
+//   const files = fs.readdirSync(postsDir);
+
+//   const posts = files.map(filename => {
+//     const slug = filename.replace('.md', '');
+//     const markdownWithMeta = fs.readFileSync(path.join(postsDir, filename), 'utf-8');
+//     const { data: frontmatter } = matter(markdownWithMeta);
+
+//     return {
+//       slug,
+//       frontmatter,
+//     };
+//   });
+
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// }
+
+export async function getStaticProps() {
+  const files = fs.readdirSync(path.join('posts'));
+
+  const posts = files.map((filename) => {
+    const slug = filename.replace('.md', '');
+    const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8');
+    const { data: frontmatter } = matter(markdownWithMeta);
+
+    return {
+      slug,
+      frontmatter,
+    };
+  });
+
+  // Sort posts by date descending (newest first)
+  posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
