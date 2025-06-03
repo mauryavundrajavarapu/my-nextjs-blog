@@ -125,12 +125,17 @@
 
 
 // pages/posts/[slug].tsx
+
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Image from 'next/image';
+
+import { toZonedTime, format } from 'date-fns-tz';
+
+
 
 type Frontmatter = {
   title: string;
@@ -143,17 +148,23 @@ type Frontmatter = {
 };
 
 type PostPageProps = {
-  content: string;       // markdown content or HTML string
+  content: string;
   frontmatter: Frontmatter;
-  uploadTime: string;    // or Date if you convert it somewhere
+  uploadTime: string; // ISO date string
 };
 
 
-
 export default function PostPage({ content, frontmatter, uploadTime }: PostPageProps) {
+  // Convert uploadTime to IST and format it with explicit (IST)
+const dateFnsTz = require('date-fns-tz');
+
+const zonedDate = toZonedTime(new Date(uploadTime), 'Asia/Kolkata');
+const formattedDate = format(zonedDate, "dd MMM yyyy, HH:mm '(IST)'");
+
+
   return (
     <div className="bg-white text-black min-h-screen">
- <div className="relative w-full h-[24rem] sm:h-[32rem] md:h-[38rem]">
+     <div className="relative w-full h-[22rem] sm:h-[28rem] md:h-[34rem]">
   <Image
     src={frontmatter.image}
     alt={frontmatter.title}
@@ -173,22 +184,21 @@ export default function PostPage({ content, frontmatter, uploadTime }: PostPageP
       </div>
 
       <article className="max-w-3xl mx-auto px-6 py-12 text-lg leading-8 font-serif">
-        {/* Upload time */}
+        {/* Upload time with IST */}
         <p className="text-sm italic text-gray-500 mb-6">
-          Published: {uploadTime}
+          Published: {formattedDate}
         </p>
 
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           components={{
-            h1: ({...props }) => <h1 className="text-4xl font-bold mt-10 mb-4" {...props} />,
-            h2: ({...props }) => <h2 className="text-3xl font-semibold mt-8 mb-3" {...props} />,
-            h3: ({...props }) => <h3 className="text-2xl font-medium mt-6 mb-2" {...props} />,
-            p: ({...props }) => <p className="text-lg mb-4 leading-relaxed" {...props} />,
-            ul: ({...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
-ol: ({...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
-li: ({...props }) => <li className="mb-1" {...props} />,
-
+            h1: ({ ...props }) => <h1 className="text-4xl font-bold mt-10 mb-4" {...props} />,
+            h2: ({ ...props }) => <h2 className="text-3xl font-semibold mt-8 mb-3" {...props} />,
+            h3: ({ ...props }) => <h3 className="text-2xl font-medium mt-6 mb-2" {...props} />,
+            p: ({ ...props }) => <p className="text-lg mb-4 leading-relaxed" {...props} />,
+            ul: ({ ...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
+            ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
+            li: ({ ...props }) => <li className="mb-1" {...props} />,
           }}
         >
           {content}
@@ -201,7 +211,7 @@ li: ({...props }) => <li className="mb-1" {...props} />,
 export async function getStaticPaths() {
   const files = fs.readdirSync(path.join('posts'));
 
-  const paths = files.map(filename => ({
+  const paths = files.map((filename) => ({
     params: {
       slug: filename.replace('.md', ''),
     },
@@ -213,37 +223,13 @@ export async function getStaticPaths() {
   };
 }
 
-// export async function getStaticProps({ params: { slug } }) {
-//   const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.md'), 'utf-8');
-//   const { data: frontmatter, content } = matter(markdownWithMeta);
-
-//   // Generate upload time dynamically (India Standard Time)
-//   const now = new Date();
-//   const istDate = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-//   const uploadTime = istDate.toLocaleString('en-IN', {
-//     dateStyle: 'long',
-//     timeStyle: 'short',
-//   });
-
-//   return {
-//     props: {
-//       frontmatter,
-//       content,
-//       uploadTime,
-//     },
-//   };
-// }
-
 import { GetStaticPropsContext } from 'next';
 
-export async function getStaticProps({ params }: { params: { slug: string } }) {
-  const markdownWithMeta = fs.readFileSync(path.join('posts', params.slug + '.md'), 'utf-8');
+export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: string }>) {
+  const markdownWithMeta = fs.readFileSync(path.join('posts', params!.slug + '.md'), 'utf-8');
   const { data: frontmatter, content } = matter(markdownWithMeta);
 
-  const uploadTime = new Date(frontmatter.date).toLocaleString('en-IN', {
-    dateStyle: 'long',
-    timeStyle: 'short',
-  });
+  const uploadTime = frontmatter.date;
 
   return {
     props: {
