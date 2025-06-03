@@ -115,7 +115,7 @@ type Post = {
     image: string;
     author?: string;
     type?: string;
-    [key: string]: any; // for any other optional frontmatter fields
+    [key: string]: unknown; // for any other optional frontmatter fields
   };
 };
 
