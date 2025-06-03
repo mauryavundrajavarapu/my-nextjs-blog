@@ -130,14 +130,15 @@ import path from 'path';
 import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
- 
+import Image from 'next/image';
+
 
 
 export default function PostPage({ content, frontmatter, uploadTime }) {
   return (
     <div className="bg-white text-black min-h-screen">
       <div className="relative">
-        <img
+        <Image
           src={frontmatter.image}
           alt={frontmatter.title}
           className="w-full max-h-[70vh] object-cover"
@@ -161,13 +162,13 @@ export default function PostPage({ content, frontmatter, uploadTime }) {
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           components={{
-            h1: ({ node: _node, ...props }) => <h1 className="text-4xl font-bold mt-10 mb-4" {...props} />,
-            h2: ({ node: _node, ...props }) => <h2 className="text-3xl font-semibold mt-8 mb-3" {...props} />,
-            h3: ({ node: _node, ...props }) => <h3 className="text-2xl font-medium mt-6 mb-2" {...props} />,
-            p: ({ node: _node, ...props }) => <p className="text-lg mb-4 leading-relaxed" {...props} />,
-            ul: ({ node: _node, ...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
-ol: ({ node: _node, ...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
-li: ({ node: _node, ...props }) => <li className="mb-1" {...props} />,
+            h1: ({...props }) => <h1 className="text-4xl font-bold mt-10 mb-4" {...props} />,
+            h2: ({...props }) => <h2 className="text-3xl font-semibold mt-8 mb-3" {...props} />,
+            h3: ({...props }) => <h3 className="text-2xl font-medium mt-6 mb-2" {...props} />,
+            p: ({...props }) => <p className="text-lg mb-4 leading-relaxed" {...props} />,
+            ul: ({...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
+ol: ({...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
+li: ({...props }) => <li className="mb-1" {...props} />,
 
           }}
         >

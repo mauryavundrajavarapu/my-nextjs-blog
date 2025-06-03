@@ -103,6 +103,8 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { useState } from 'react';
+import Image from 'next/image';
+
 
 
 
@@ -153,7 +155,7 @@ export default function Home({ posts }) {
             href={`/posts/${slug}`}
             className="block shadow-md hover:shadow-lg rounded overflow-hidden transition"
           >
-            <img
+            <Image
               src={frontmatter.image}
               alt={frontmatter.title}
               className="w-full max-h-48 object-contain rounded bg-gray-100"
