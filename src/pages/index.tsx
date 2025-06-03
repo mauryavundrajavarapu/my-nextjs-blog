@@ -105,25 +105,22 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
 
-type Post = {
-  slug: string;
-  frontmatter: {
-    title: string;
-    date: string;
-    description: string;
-    category: string;
-    image: string;
-    author?: string;
-    type?: string;
-    [key: string]: unknown; // for any other optional frontmatter fields
-  };
+type Frontmatter = {
+  title: string;
+  date: string;
+  description: string;
+  category: string;
+  image: string;
+  author?: string;
+  type?: string;
 };
 
-interface HomeProps {
-  posts: Post[];
-}
+type Post = {
+  slug: string;
+  frontmatter: Frontmatter;
+};
 
-export default function Home({ posts }: HomeProps) {
+export default function Home({ posts }: { posts: Post[] }) {
   const [category, setCategory] = useState('All');
 
   const filtered =
@@ -133,6 +130,7 @@ export default function Home({ posts }: HomeProps) {
 
   return (
     <div className="w-full min-h-screen bg-white text-black p-6">
+      {/* Title with 'Abramo' or serif fallback */}
       <h1
         className="text-5xl font-serif text-center my-6"
         style={{ fontFamily: "'Abramo', serif" }}
@@ -140,6 +138,7 @@ export default function Home({ posts }: HomeProps) {
         Maurya&apos;s Mind
       </h1>
 
+      {/* Subtitle with 'Cabin Sketch' or cursive fallback */}
       <h2
         className="text-3xl text-center mb-2"
         style={{ fontFamily: "'Cabin Sketch', cursive" }}
@@ -147,6 +146,7 @@ export default function Home({ posts }: HomeProps) {
         BOOKS MOVIES THOUGHTS STORIES
       </h2>
 
+      {/* Description with 'Blogger' or sans-serif fallback */}
       <p
         className="text-center mb-8"
         style={{ fontFamily: "'Blogger', sans-serif" }}
@@ -155,6 +155,7 @@ export default function Home({ posts }: HomeProps) {
         them all, one post at a time.
       </p>
 
+      {/* Category buttons */}
       <div className="flex justify-center gap-4 mb-8 flex-wrap">
         {['All', 'Books', 'Movies', 'Thoughts', 'Stories'].map((cat) => (
           <button
@@ -171,6 +172,7 @@ export default function Home({ posts }: HomeProps) {
         ))}
       </div>
 
+      {/* Posts grid */}
       <div className="grid md:grid-cols-3 gap-8">
         {filtered.map(({ slug, frontmatter }) => (
           <Link
@@ -181,13 +183,14 @@ export default function Home({ posts }: HomeProps) {
             <Image
               src={frontmatter.image}
               alt={frontmatter.title}
-              width={400}         // Adjust these as needed
-              height={200}        // Adjust these as needed
               className="w-full max-h-48 object-contain rounded bg-gray-100"
+              width={500}
+              height={200}
+              priority={false}
             />
             <div className="p-4 bg-white">
               <p className="text-sm text-gray-500">
-                {frontmatter.type ?? ''} / {frontmatter.category}
+                {frontmatter.type} / {frontmatter.category}
               </p>
               <h3
                 className="text-lg font-bold mt-1"
@@ -201,11 +204,9 @@ export default function Home({ posts }: HomeProps) {
               >
                 {frontmatter.description}
               </p>
-              {frontmatter.author && (
-                <p className="mt-2 text-sm text-gray-600 italic">
-                  {frontmatter.author}
-                </p>
-              )}
+              <p className="mt-2 text-sm text-gray-600 italic">
+                {frontmatter.author}
+              </p>
             </div>
           </Link>
         ))}
@@ -223,7 +224,10 @@ export async function getStaticProps() {
       path.join('posts', filename),
       'utf-8'
     );
-    const { data: frontmatter } = matter(markdownWithMeta);
+    const { data } = matter(markdownWithMeta);
+
+    // Cast data to Frontmatter type
+    const frontmatter = data as Frontmatter;
 
     return {
       slug,
@@ -231,7 +235,7 @@ export async function getStaticProps() {
     };
   });
 
-  // Sort posts by date descending
+  // Sort posts by date descending (newest first)
   posts.sort(
     (a, b) =>
       new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
