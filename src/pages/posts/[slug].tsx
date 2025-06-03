@@ -161,13 +161,13 @@ export default function PostPage({ content, frontmatter, uploadTime }) {
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           components={{
-            h1: ({ node, ...props }) => <h1 className="text-4xl font-bold mt-10 mb-4" {...props} />,
-            h2: ({ node, ...props }) => <h2 className="text-3xl font-semibold mt-8 mb-3" {...props} />,
-            h3: ({ node, ...props }) => <h3 className="text-2xl font-medium mt-6 mb-2" {...props} />,
-            p: ({ node, ...props }) => <p className="text-lg mb-4 leading-relaxed" {...props} />,
-            ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
-ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
-li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+            h1: ({ node: _node, ...props }) => <h1 className="text-4xl font-bold mt-10 mb-4" {...props} />,
+            h2: ({ node: _node, ...props }) => <h2 className="text-3xl font-semibold mt-8 mb-3" {...props} />,
+            h3: ({ node: _node, ...props }) => <h3 className="text-2xl font-medium mt-6 mb-2" {...props} />,
+            p: ({ node: _node, ...props }) => <p className="text-lg mb-4 leading-relaxed" {...props} />,
+            ul: ({ node: _node, ...props }) => <ul className="list-disc pl-6 mb-4" {...props} />,
+ol: ({ node: _node, ...props }) => <ol className="list-decimal pl-6 mb-4" {...props} />,
+li: ({ node: _node, ...props }) => <li className="mb-1" {...props} />,
 
           }}
         >

@@ -115,7 +115,7 @@ export default function Home({ posts }) {
     <div className="w-full min-h-screen bg-white text-black p-6">
       {/* Title with 'Abramo' or serif fallback */}
       <h1 className="text-5xl font-serif text-center my-6" style={{ fontFamily: "'Abramo', serif" }}>
-        Maurya's Mind
+        Maurya&apos;s Mind
       </h1>
 
       {/* Subtitle with 'Cabin Sketch' or cursive fallback */}
