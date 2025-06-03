@@ -153,12 +153,15 @@ type PostPageProps = {
 export default function PostPage({ content, frontmatter, uploadTime }: PostPageProps) {
   return (
     <div className="bg-white text-black min-h-screen">
-      <div className="relative">
-        <Image
-          src={frontmatter.image}
-          alt={frontmatter.title}
-          className="w-full max-h-[70vh] object-cover"
-        />
+ <div className="relative w-full h-[24rem] sm:h-[32rem] md:h-[38rem]">
+  <Image
+    src={frontmatter.image}
+    alt={frontmatter.title}
+    fill
+    style={{ objectFit: 'cover' }}
+    priority
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
+  />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center bg-black/40">
           <h1 className="text-5xl font-serif mb-2" style={{ fontFamily: "'Abramo', serif" }}>
             {frontmatter.title}
@@ -233,18 +236,23 @@ export async function getStaticPaths() {
 
 import { GetStaticPropsContext } from 'next';
 
-export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: string }>) {
-  const slug = params?.slug; // The '!' tells TypeScript slug definitely exists
-
-  const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.md'), 'utf-8');
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const markdownWithMeta = fs.readFileSync(path.join('posts', params.slug + '.md'), 'utf-8');
   const { data: frontmatter, content } = matter(markdownWithMeta);
+
+  const uploadTime = new Date(frontmatter.date).toLocaleString('en-IN', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+  });
 
   return {
     props: {
       frontmatter,
       content,
+      uploadTime,
     },
   };
 }
+
 
 
