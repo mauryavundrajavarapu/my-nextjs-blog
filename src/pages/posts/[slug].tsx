@@ -132,10 +132,7 @@ import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Image from 'next/image';
-
-import { toZonedTime, format } from 'date-fns-tz';
-
-
+import { toZonedTime, format } from 'date-fns-tz'; // ✅ Correct import
 
 type Frontmatter = {
   title: string;
@@ -153,26 +150,22 @@ type PostPageProps = {
   uploadTime: string; // ISO date string
 };
 
-
 export default function PostPage({ content, frontmatter, uploadTime }: PostPageProps) {
-  // Convert uploadTime to IST and format it with explicit (IST)
-const dateFnsTz = require('date-fns-tz');
-
-const zonedDate = toZonedTime(new Date(uploadTime), 'Asia/Kolkata');
-const formattedDate = format(zonedDate, "dd MMM yyyy, HH:mm '(IST)'");
-
+  // ✅ Format upload time to IST
+  const zonedDate = toZonedTime(new Date(uploadTime), 'Asia/Kolkata');
+  const formattedDate = format(zonedDate, "dd MMM yyyy, HH:mm '(IST)'");
 
   return (
     <div className="bg-white text-black min-h-screen">
-     <div className="relative w-full h-[22rem] sm:h-[28rem] md:h-[34rem]">
-  <Image
-    src={frontmatter.image}
-    alt={frontmatter.title}
-    fill
-    style={{ objectFit: 'cover' }}
-    priority
-    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
-  />
+      <div className="relative w-full h-[26rem] sm:h-[30rem] md:h-[32rem]">
+        <Image
+          src={frontmatter.image}
+          alt={frontmatter.title}
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1024px"
+        />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center bg-black/40">
           <h1 className="text-5xl font-serif mb-2" style={{ fontFamily: "'Abramo', serif" }}>
             {frontmatter.title}
@@ -184,7 +177,6 @@ const formattedDate = format(zonedDate, "dd MMM yyyy, HH:mm '(IST)'");
       </div>
 
       <article className="max-w-3xl mx-auto px-6 py-12 text-lg leading-8 font-serif">
-        {/* Upload time with IST */}
         <p className="text-sm italic text-gray-500 mb-6">
           Published: {formattedDate}
         </p>
@@ -239,6 +231,3 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: s
     },
   };
 }
-
-
-
