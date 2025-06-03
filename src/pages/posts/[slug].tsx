@@ -132,9 +132,25 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import Image from 'next/image';
 
+type Frontmatter = {
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  author?: string;
+  type?: string;
+  date: string;
+};
+
+type PostPageProps = {
+  content: string;       // markdown content or HTML string
+  frontmatter: Frontmatter;
+  uploadTime: string;    // or Date if you convert it somewhere
+};
 
 
-export default function PostPage({ content, frontmatter, uploadTime }) {
+
+export default function PostPage({ content, frontmatter, uploadTime }: PostPageProps) {
   return (
     <div className="bg-white text-black min-h-screen">
       <div className="relative">
@@ -215,26 +231,20 @@ export async function getStaticPaths() {
 //   };
 // }
 
-export async function getStaticProps({ params: { slug } }) {
+import { GetStaticPropsContext } from 'next';
+
+export async function getStaticProps({ params }: GetStaticPropsContext<{ slug: string }>) {
+  const slug = params?.slug; // The '!' tells TypeScript slug definitely exists
+
   const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.md'), 'utf-8');
   const { data: frontmatter, content } = matter(markdownWithMeta);
-
-  const rawDate = frontmatter.date || new Date().toISOString();
-  const dateObj = new Date(rawDate);
-  const istDate = new Date(dateObj.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-  const uploadTime = istDate.toLocaleString('en-IN', {
-    dateStyle: 'long',
-    timeStyle: 'short',
-  });
 
   return {
     props: {
       frontmatter,
       content,
-      uploadTime,
     },
   };
 }
-
 
 
