@@ -77,7 +77,4 @@ body,
   padding-left: 1.5rem;
 } 
 
-body {
-  background-image: url('/background.png'); /* Place this image in the public folder */
- 
-}
+
