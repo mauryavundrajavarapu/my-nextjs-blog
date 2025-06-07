@@ -12,7 +12,7 @@ date: "2025-06-03T11:59:00+05:30"
 
  1. First Noble Truth is "There exists Suffering in Life"
 
- 2. Second Noble Truth is "There exists cause for Suffering and Ignorance, Craving and Desire are the cause for Suffering"
+ 2. Second Noble Truth is "There exists cause for Suffering and Ignorance, Craving and Antipathy are the cause for Suffering"
 
  3. Third Noble Truth is "There exists end to Suffering"
 
