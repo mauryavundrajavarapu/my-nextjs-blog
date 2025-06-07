@@ -3,8 +3,8 @@ title: "THE FOUR NOBLE TRUTHS AND MORE"
 description: " When Siddartha Gautama got elightened, he got struck with Cosmic Knowledge. And to make it feasible to lay people, he simplified that knoeledge into many concepts."
 image: "/images/Buddha.png"
 category: "Thoughts"
-author: "Gautama Buddha"
-type: "Summary Points / Religious Philosophy"
+author: "Maurya"
+type: "Philosophy / Buddhism"
 date: "2025-06-03T11:59:00+05:30"
 ---
 
