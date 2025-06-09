@@ -43,7 +43,9 @@ Note: Fundamental Aggregates, for the sake of understanding can be assumed to be
 
 Therefore the only way through which a Life can get redemption from Suffering is through extinguishing Ignorance, Craving and Antipathy. When the Ignorance ceases, one realises the perilous nature of Craving/Antipathy and they will cease this Craving/Antipathy through **Noble Eight Fold Path**. So there will be no further Karmic Tendencies formed through Karma, as no new Karma(to quench craving) would take place through the person. So without Karmic Tendencies, the Fundamental Aggregates wouldn’t have the influence of Craving, as craving itself ceases. Ultimately they(Fundamental Aggregates) don’t actualise to form Life again. So, there will be cessation of Suffering. Thus the Loop of Samsara Stops. There won’t be any further manifestation of Self. Nirvana!!! (Stop Ignorance -> Stop Craving/Antipathy -> No Further Karma -> Cycle Stops)
 
-PS:
+----------------------------------------------------------------------------------------------------------
+
+## PS:
 Ceasing the Ignorance, Craving and Antipathy might seem confusing, as for Human Life or any Life, craving is an inherent Nature and many times it even lead to progress. But Buddha found a way to progress Life even by ceasing the Cravign. And that way is "The Middle Way of Buddha" which is formulated as "Noble Eight Fold Path". I will make an other post on how "Noble Eight Fold Path" helps us cease Craving and Liberate us from Suffering. I suggest you to do your own research to understand the significance of Noble Eight Fold Path.
 
 Fundamental Elements/Particle/Aggregates, are also known as Khandas according to Buddhism.  These five aggregates (khandhas): form, sensation, perception, mental formations, and consciousness are what we mistake for the "self." But none of them are permanent or independently existing.
