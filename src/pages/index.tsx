@@ -408,15 +408,189 @@
 //   };
 // }
 
+// import fs from 'fs';
+// import path from 'path';
+// import matter from 'gray-matter';
+// import Link from 'next/link';
+// import { useState } from 'react';
+// import Image from 'next/image';
+// import { Analytics } from "@vercel/analytics/next"
+
+// <Analytics/>
+
+// type Frontmatter = {
+//   title: string;
+//   date: string;
+//   description: string;
+//   category: string;
+//   image: string;
+//   author?: string;
+//   type?: string;
+// };
+
+// type Post = {
+//   slug: string;
+//   frontmatter: Frontmatter;
+// };
+
+// export default function Home({ posts }: { posts: Post[] }) {
+//   const [category, setCategory] = useState('All');
+
+//   const filtered =
+//     category === 'All'
+//       ? posts
+//       : posts.filter((p) => p.frontmatter.category === category);
+
+//   return (
+//     <div className="w-full min-h-screen bg-white text-black">
+//       {/* Top section with full-width background image and fade overlay */}
+//       <div
+//         className="relative w-full bg-no-repeat bg-center bg-cover"
+//         style={{ backgroundImage: "url('/images/background.jpg')" }}
+//       >
+//         {/* Fade overlay: absolute covers whole div */}
+//         <div
+//           className="absolute inset-0"
+//           style={{
+//             background:
+//               'linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.1), rgba(0,0,0,0))',
+//             pointerEvents: 'none',
+//           }}
+//         />
+
+//         {/* Content container: constrained width, centered */}
+//         <div className="relative max-w-7xl mx-auto px-6 py-20 text-center text-white">
+//           {/* Title */}
+//           <h1
+//             className="text-5xl font-serif mb-6"
+//             style={{ fontFamily: "'Abramo', serif" }}
+//           >
+//             Maurya&apos;s Mind
+//           </h1>
+
+//           {/* Subtitle */}
+//           <h2
+//             className="text-3xl mb-2"
+//             style={{ fontFamily: "'Cabin Sketch', cursive" }}
+//           >
+//             BOOKS MOVIES THOUGHTS STORIES
+//           </h2>
+
+//           {/* Description */}
+//           <p
+//             className="mb-8 max-w-3xl mx-auto"
+//             style={{ fontFamily: "'Blogger', sans-serif" }}
+//           >
+//             Books, movies, thoughts, stories and much more, this is where I unpack
+//             them all, one post at a time.
+//           </p>
+
+//           {/* Category buttons */}
+//           <div className="flex justify-center gap-4 flex-wrap">
+//             {['All', 'Books', 'Movies', 'Thoughts', 'Stories'].map((cat) => (
+//               <button
+//                 key={cat}
+//                 onClick={() => setCategory(cat)}
+//                 className={`px-5 py-2 rounded-full font-semibold transition ${
+//                   category === cat
+//                     ? 'bg-white text-black'
+//                     : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+//                 }`}
+//               >
+//                 {cat}
+//               </button>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Posts section without background */}
+//       <div className="max-w-7xl mx-auto px-6 py-16">
+//         <div className="grid md:grid-cols-3 gap-8">
+//           {filtered.map(({ slug, frontmatter }) => (
+//             <Link
+//               key={slug}
+//               href={`/posts/${slug}`}
+//               className="block shadow-md hover:shadow-lg rounded overflow-hidden transition"
+//             >
+//               <Image
+//                 src={frontmatter.image}
+//                 alt={frontmatter.title}
+//                 className="w-full max-h-48 object-contain rounded bg-gray-100"
+//                 width={500}
+//                 height={200}
+//                 priority={false}
+//               />
+//               <div className="p-4 bg-white">
+//                 <p className="text-sm text-gray-500">
+//                   {frontmatter.type} / {frontmatter.category}
+//                 </p>
+//                 <h3
+//                   className="text-lg font-bold mt-1"
+//                   style={{ fontFamily: "'Abramo', serif" }}
+//                 >
+//                   {frontmatter.title}
+//                 </h3>
+//                 <p
+//                   className="text-sm text-gray-700 mt-1"
+//                   style={{ fontFamily: "'Blogger', sans-serif" }}
+//                 >
+//                   {frontmatter.description}
+//                 </p>
+//                 <p className="mt-2 text-sm text-gray-600 italic">
+//                   {frontmatter.author}
+//                 </p>
+//               </div>
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export async function getStaticProps() {
+//   const files = fs.readdirSync(path.join('posts'));
+
+//   const posts: Post[] = files.map((filename) => {
+//     const slug = filename.replace('.md', '');
+//     const markdownWithMeta = fs.readFileSync(
+//       path.join('posts', filename),
+//       'utf-8'
+//     );
+//     const { data } = matter(markdownWithMeta);
+
+//     // Cast data to Frontmatter type
+//     const frontmatter = data as Frontmatter;
+
+//     return {
+//       slug,
+//       frontmatter,
+//     };
+//   });
+
+//   // Sort posts by date descending (newest first)
+//   posts.sort(
+//     (a, b) =>
+//       new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+//   );
+
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// }
+
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { Analytics } from "@vercel/analytics/next"
-
-<Analytics/>
+import { Analytics } from "@vercel/analytics/next";
+import Fuse from 'fuse.js';
+import { Search } from 'lucide-react'; // Icon for search box
 
 type Frontmatter = {
   title: string;
@@ -435,20 +609,32 @@ type Post = {
 
 export default function Home({ posts }: { posts: Post[] }) {
   const [category, setCategory] = useState('All');
+  const [query, setQuery] = useState('');
+
+  const fuse = useMemo(() => {
+    return new Fuse(posts, {
+      keys: ['frontmatter.title', 'frontmatter.description', 'frontmatter.category'],
+      threshold: 0.3,
+    });
+  }, [posts]);
+
+  const searchedPosts = query
+    ? fuse.search(query).map((result) => result.item)
+    : posts;
 
   const filtered =
     category === 'All'
-      ? posts
-      : posts.filter((p) => p.frontmatter.category === category);
+      ? searchedPosts
+      : searchedPosts.filter((p) => p.frontmatter.category === category);
 
   return (
     <div className="w-full min-h-screen bg-white text-black">
-      {/* Top section with full-width background image and fade overlay */}
+      {/* Hero section */}
       <div
         className="relative w-full bg-no-repeat bg-center bg-cover"
         style={{ backgroundImage: "url('/images/background.jpg')" }}
       >
-        {/* Fade overlay: absolute covers whole div */}
+        {/* Overlay */}
         <div
           className="absolute inset-0"
           style={{
@@ -458,25 +644,35 @@ export default function Home({ posts }: { posts: Post[] }) {
           }}
         />
 
-        {/* Content container: constrained width, centered */}
+        {/* Search box top-right */}
+        <div className="absolute top-6 right-6 z-20">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+            <input
+  type="text"
+  placeholder="Search..."
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  className="pl-10 pr-4 py-2 rounded-full border border-white/60 text-white placeholder-white/60 bg-transparent w-64 max-w-[80vw] backdrop-blur-sm"
+/>
+
+          </div>
+        </div>
+
+        {/* Hero content */}
         <div className="relative max-w-7xl mx-auto px-6 py-20 text-center text-white">
-          {/* Title */}
           <h1
             className="text-5xl font-serif mb-6"
             style={{ fontFamily: "'Abramo', serif" }}
           >
             Maurya&apos;s Mind
           </h1>
-
-          {/* Subtitle */}
           <h2
             className="text-3xl mb-2"
             style={{ fontFamily: "'Cabin Sketch', cursive" }}
           >
             BOOKS MOVIES THOUGHTS STORIES
           </h2>
-
-          {/* Description */}
           <p
             className="mb-8 max-w-3xl mx-auto"
             style={{ fontFamily: "'Blogger', sans-serif" }}
@@ -504,47 +700,53 @@ export default function Home({ posts }: { posts: Post[] }) {
         </div>
       </div>
 
-      {/* Posts section without background */}
+      {/* Posts section */}
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-8">
-          {filtered.map(({ slug, frontmatter }) => (
-            <Link
-              key={slug}
-              href={`/posts/${slug}`}
-              className="block shadow-md hover:shadow-lg rounded overflow-hidden transition"
-            >
-              <Image
-                src={frontmatter.image}
-                alt={frontmatter.title}
-                className="w-full max-h-48 object-contain rounded bg-gray-100"
-                width={500}
-                height={200}
-                priority={false}
-              />
-              <div className="p-4 bg-white">
-                <p className="text-sm text-gray-500">
-                  {frontmatter.type} / {frontmatter.category}
-                </p>
-                <h3
-                  className="text-lg font-bold mt-1"
-                  style={{ fontFamily: "'Abramo', serif" }}
-                >
-                  {frontmatter.title}
-                </h3>
-                <p
-                  className="text-sm text-gray-700 mt-1"
-                  style={{ fontFamily: "'Blogger', sans-serif" }}
-                >
-                  {frontmatter.description}
-                </p>
-                <p className="mt-2 text-sm text-gray-600 italic">
-                  {frontmatter.author}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {filtered.length === 0 ? (
+          <p className="text-center text-gray-600 text-lg italic">No posts found.</p>
+        ) : (
+          <div className="grid md:grid-cols-3 gap-8">
+            {filtered.map(({ slug, frontmatter }) => (
+              <Link
+                key={slug}
+                href={`/posts/${slug}`}
+                className="block shadow-md hover:shadow-lg rounded overflow-hidden transition"
+              >
+                <Image
+                  src={frontmatter.image}
+                  alt={frontmatter.title}
+                  className="w-full max-h-48 object-contain rounded bg-gray-100"
+                  width={500}
+                  height={200}
+                  priority={false}
+                />
+                <div className="p-4 bg-white">
+                  <p className="text-sm text-gray-500">
+                    {frontmatter.type} / {frontmatter.category}
+                  </p>
+                  <h3
+                    className="text-lg font-bold mt-1"
+                    style={{ fontFamily: "'Abramo', serif" }}
+                  >
+                    {frontmatter.title}
+                  </h3>
+                  <p
+                    className="text-sm text-gray-700 mt-1"
+                    style={{ fontFamily: "'Blogger', sans-serif" }}
+                  >
+                    {frontmatter.description}
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600 italic">
+                    {frontmatter.author}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
+
+      <Analytics />
     </div>
   );
 }
@@ -560,7 +762,6 @@ export async function getStaticProps() {
     );
     const { data } = matter(markdownWithMeta);
 
-    // Cast data to Frontmatter type
     const frontmatter = data as Frontmatter;
 
     return {
@@ -569,7 +770,6 @@ export async function getStaticProps() {
     };
   });
 
-  // Sort posts by date descending (newest first)
   posts.sort(
     (a, b) =>
       new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
