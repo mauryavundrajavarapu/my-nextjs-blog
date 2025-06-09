@@ -4,7 +4,7 @@ description: "When Siddartha Gautama got elightened, he got struck with Cosmic K
 image: "/images/Buddha.png"
 category: "Books"
 author: "Maurya"
-type: "Phioloshy and Religion / Buddhism"
+type: "Philosophy and Religion / Buddhism"
 date: "2025-06-09T19:02:00+05:30"
 ---
 
