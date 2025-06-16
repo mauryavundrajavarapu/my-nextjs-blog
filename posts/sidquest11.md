@@ -114,7 +114,7 @@ Sid closed the journal softly. His eyes were wet, but there was a quietness in h
 ----------------------------------------------------------------
 
 To access further, click links below:
-1. Previous Chapter: Chapter 0
+1. Previous Chapter: <font color="maroon">[Chapter 0 (Thus Begins the Wash)](https://mauryasmind.vercel.app/posts/sidquest00)</font>
 2. Next Chapter: Chapter 2
-3. All Parts and Chapters: Intro Page
+3. All Parts and Chapters: <font color="maroon">[Intro Page](https://mauryasmind.vercel.app/posts/sidquestIntro)</font>
 

@@ -55,3 +55,10 @@ The old ascetic looked at him curiously. There was something unusual about the b
 "It's Sid Sir" 
 
 "Okay all the Best for your Sidquest!"
+
+----------------------------------------------------------------
+
+To access further, click links below:
+1. Next Chapter: <font color="maroon">[Chapter 1 (Evil Begets Evil)](https://mauryasmind.vercel.app/posts/sidquest11)</font>
+2. All Parts and Chapter: All Parts and Chapters: <font color="maroon">[Intro Page](https://mauryasmind.vercel.app/posts/sidquestIntro)</font>
+
