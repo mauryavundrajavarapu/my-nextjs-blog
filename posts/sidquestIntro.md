@@ -22,5 +22,5 @@ I will release this story in chapters and parts, each of which includes a subtle
 1. Part 0:
    1. <font color="maroon">[Chapter 0 (Thus Begins the Wash)](https://mauryasmind.vercel.app/posts/sidquest00)</font>
 2. Part 1: (The Twin Pairs)
-   1. <font color="maroon">[Chapter 1 (Evil Begets Evil)](https://mauryasmind.vercel.app/posts/sidquest11)</font>
+   1. <font color="maroon">[Chapter 1 (Evil Begets Evil and Good Begets Good)](https://mauryasmind.vercel.app/posts/sidquest11)</font>
    
