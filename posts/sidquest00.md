@@ -33,6 +33,7 @@ The old ascetic looked at him curiously. There was something unusual about the b
 "In the sense of certification from educational institutions i am having many, but i don't consider it to be the Actual Education. And I am in search of it"
 
 "Ohh so that's why you became a wanderer?”
+
 "Yes"
 
 "You ran away from home?"
@@ -48,6 +49,7 @@ The old ascetic looked at him curiously. There was something unusual about the b
 "Ohh that sounds philosophical but philosophy isn't the answer for me, i have read many philosphical and religious texts and none gave me the answer, all i felt of them was, dry words, and nothing in them gave me the actual Education."
 
 "Ohh in that case i wish you find your Actual Education soon"
+
 "Thankyou Sir, it was nice meeting you" 
 
 "Same here, All the Best for your Quest…, ohh wait What's your Name?"

@@ -13,9 +13,9 @@ That’s where Sid had found work, not much he gets, just enough to get by. He b
 
 Srinivas, though frail, still managed a chuckle or two every now and then. He seemed glad to have Sid around. They even shared a tiny roadside shed behind the stall.
 
-Sid didn’t mind the noise. If anything he liked, it is listening to the chatter that floated in with the steam of the tea from the conversations from passengers, coolies, newspaper boys, and travellers in a hurry. In those passing words, he found stories, bits of lives he’d never lived, but could sit quietly and absorb.
+Sid didn’t mind the noise. If anything he liked, it is listening to the chatter that floated from the conversations of passengers, coolies, newspaper boys, and travellers in a hurry. In those passing words, he found stories, bits of lives he’d never lived, he savours all their stories like a Biscuit dipped in Tea.
 
-One lazy afternoon, just as Sid was folding up the cloth on the counter and thinking of stretching out for a nap, the old man’s son Ravi came in, rushed and rough, like a sudden wind that didn’t belong.He shoved past Sid without a word, headed straight for the money box, and forced it open.
+One lazy afternoon, just as Sid was folding up the cloth on the counter and thinking of stretching out for a nap, the old man’s son Ravi came in, rushed and rough, like a sudden wind that didn’t belong. He shoved past Sid without a word, headed straight for the money box, and forced it open.
 Sid tried to stop him by grabbing at his arm and raising his voice, but the man was stronger and too quick. With a fistful of crumpled notes, he stormed out as fast as he had come.
 Sid stood still for a moment, his breath caught somewhere between anger and helplessness. Then, without a word, he shut the shutters and walked back to the little shed behind the stall.The old man was still asleep, curled up with his back to the wall, unaware of the storm that had just passed through.
 
@@ -67,8 +67,8 @@ Ravi froze for a moment, his face pale, and then without a word, he turned and r
 Sid rushed to the old man, cradling his limp body and calling out his name. But there was no answer.
 At the hospital, the truth was quiet and cruel. Srinivas was gone.
 
-The police came. They took down statements and followed the trail. Ravi was arrested soon after. Word spread fast. His wife left him. His children were taken away. Neighbours whispered his name with contempt, “the man who killed his own father.”
-And in the silence of his cell, Ravi would come to live with what he had done, day after day, alone with the echoes of a life that could have been different.
+The police came. They took down statements and followed the trail. Ravi was arrested soon after. Word spread fast. His wife left him. His children were taken away. Neighbours whispered his name with contempt, “The man who killed his own father.”
+And in the silence of his cell, Ravi left with nothing but time and space to dwell upon his actions,day after day, he rots there with the immese suffering of loss in everyway.
 
 Few days after this whole incident happened, Sid sat quietly at the riverbank, the earth cool beneath him.The sun was slowly setting over the Godavari, painting the river in streaks of red and gold. The air had grown soft, and the sounds of the world seemed far away. His journal lay open across his knees, and he was writing, slowly, thoughtfully.
 
@@ -82,7 +82,7 @@ Few days after this whole incident happened, Sid sat quietly at the riverbank, t
 
 *If he hadn’t started stealing in the first place, maybe none of this would’ve happened.*
 
-*But that too began somewhere.He abandoned his father the moment he became a burden and stopped earning much money.*
+*But that too began somewhere. He abandoned his father the moment he became a burden and stopped earning much money.*
 *There was no love, only craving.*
 
 *I don’t know what the starting point is,but evil at any point leads to more and more evil.*
