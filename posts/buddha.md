@@ -2,7 +2,7 @@
 title: "FOUR NOBLE TRUTHS OF BUDDHA, SAMSARA, NIRVANA AND MORE"
 description: "When Siddartha Gautama got elightened, he got struck with Cosmic Knowledge. And to make it feasible to lay people, he simplified that knowledge into many concepts."
 image: "/images/Buddha.png"
-category: "Books"
+category: "Thoughts"
 author: "Maurya"
 type: "Philosophy and Religion / Buddhism"
 date: "2025-06-09T19:02:00+05:30"
