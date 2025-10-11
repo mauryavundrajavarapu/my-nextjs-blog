@@ -3,7 +3,7 @@ title: "Art of Akira Kurosawa"
 description: "Analysis fo Film-making style of Akira Kurosawa"
 image: "/images/Akira-Kurosawa-2.jpg"
 category: "Movies"
-author: "Referenced from 'Like Stories of Old Yt Channel'"
+author: "Maurya"
 type: "Analysis"
 date: "2025-10-11T01:10:00+05:30"
 ---
